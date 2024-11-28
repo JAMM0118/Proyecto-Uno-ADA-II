@@ -1,51 +1,62 @@
-#Parametros iniciales
-numeroAcciones= 10
-precioAcciones=100
+def resolver_subasta(numeroAcciones, precioAcciones, ofertantes):
+    def generar_combinaciones(numeroAcciones, ofertantes):
+        resultados = []
 
-ofertantes=[
-    (120, 2,5),
-    (110, 3,4),
-    (200,5,6)
-]
+        def backtrack(asignacion_actual, indice, acciones_restantes):
+            if indice == len(ofertantes):  
+                if acciones_restantes >= 0:  
+                    resultados.append(asignacion_actual[:])
+                return
 
-#Funcion que calcula el valor recibido dado una asignacion de acciones
-def vr(x):
-    precioTotal=sum(o[0]*x[i] for i,o in enumerate(ofertantes))
-    return precioTotal
+            _, min_acciones, max_acciones = ofertantes[indice]
 
-def algoritmoBruto(numeroAcciones, ofertantes, vr):
-    listaAcciones=[0]*len(ofertantes) 
-    mejorCombinacion = listaAcciones
-    valorMaximo = vr(listaAcciones)
-    
-    def combinaciones(j):
-        nonlocal mejorCombinacion, valorMaximo
+            for x in range(min_acciones, max_acciones + 1):
+                if acciones_restantes - x >= 0: 
+                    asignacion_actual[indice] = x
+                    backtrack(asignacion_actual, indice + 1, acciones_restantes - x)
 
-        if j == len(ofertantes):
-            if sum(listaAcciones) <= numeroAcciones:
-                valorTemp = vr(listaAcciones)
-                if valorTemp > valorMaximo:
-                    mejorCombinacion = listaAcciones[:] 
-                    valorMaximo = valorTemp
-            return
+            asignacion_actual[indice] = 0
+            backtrack(asignacion_actual, indice + 1, acciones_restantes)
 
-        for i in range(ofertantes[j][1], ofertantes[j][2] + 1):
-            if sum(listaAcciones) + 1 <= numeroAcciones:
-                listaAcciones[j] = i  
-                combinaciones(j + 1)  
-                
-        listaAcciones[j] = 0
-        
-    combinaciones(0)
-    if sum(mejorCombinacion)<numeroAcciones:
-        accionesGobierno=numeroAcciones-sum(mejorCombinacion)
-    else:
-        accionesGobierno=0
-    return mejorCombinacion, valorMaximo,accionesGobierno
+        asignacion_inicial = [0] * len(ofertantes)
+        backtrack(asignacion_inicial, 0, numeroAcciones)
 
-mejorX, valorMaximo,accionesGobierno = algoritmoBruto(numeroAcciones, ofertantes, vr)
-if accionesGobierno!=0: valorMaximo+=precioAcciones*accionesGobierno
+        return resultados
 
-print(f"Combinación óptima: {mejorX}")
-print(f"valorMaximo: {valorMaximo}")
-print(f"Acciones compradas por el gobierno: {accionesGobierno}")
+    combinaciones = generar_combinaciones(numeroAcciones, ofertantes)
+    mejor_valor = 0
+    mejor_combinacion = None
+    acciones_gobierno = 0
+
+    for combinacion in combinaciones:
+        valor = 0
+        acciones_asignadas = sum(combinacion)
+        for i, (precio, _, _) in enumerate(ofertantes):
+            valor += combinacion[i] * precio
+        if acciones_asignadas < numeroAcciones:  
+            valor += (numeroAcciones - acciones_asignadas) * precioAcciones
+
+        if valor > mejor_valor:
+            mejor_valor = valor
+            mejor_combinacion = combinacion
+            acciones_gobierno = numeroAcciones - acciones_asignadas
+
+    return mejor_combinacion, mejor_valor, acciones_gobierno, combinaciones
+
+
+if __name__ == "__main__":
+    numeroAcciones = 1000
+    precioAcciones = 100
+    ofertantes = [
+        (500, 100, 600), 
+        (450, 400, 800)
+    ]
+
+    mejor_combinacion, mejor_valor, acciones_gobierno, combinaciones = resolver_subasta(
+        numeroAcciones, precioAcciones, ofertantes
+    )
+
+    #print(f"Mejor combinación: {mejor_combinacion}")
+    #print(f"Valor máximo: {mejor_valor}")
+    #print(f"Acciones compradas por el gobierno: {acciones_gobierno}")
+    #print(f"Total de combinaciones generadas: {combinaciones}")
