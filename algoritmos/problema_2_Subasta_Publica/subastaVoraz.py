@@ -66,7 +66,7 @@ if __name__ == "__main__":
     ]
     mejorX, valorMaximo,accionesGobierno,allCombinaciones = algoritmoVoraz(numeroAcciones, ofertantes,precioAcciones)
     
-    #print(f"Combinación óptima en su orden original: {mejorX}")
+    print(f"Combinación óptima en su orden original: {mejorX}")
     #print(f"valorMaximo: {valorMaximo}")
     #print(f"Acciones compradas por el gobierno: {accionesGobierno}")
     #print(f"Combinaciones: {allCombinaciones}")

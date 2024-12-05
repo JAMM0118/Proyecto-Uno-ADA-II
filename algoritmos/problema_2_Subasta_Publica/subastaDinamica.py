@@ -46,6 +46,7 @@ def algoritmoDinamico(numeroAcciones, ofertantes,precioAcciones):
     else:
         accionesGobierno=0
 
+    valorMaximo = matrizAcciones[n][numeroAcciones]
     if accionesGobierno!=0: valorMaximo+=precioAcciones*accionesGobierno
 
     combinaciones_parciales=[]
@@ -66,8 +67,8 @@ if __name__ == "__main__":
     ]
     mejorX, valorMaximo,accionesGobierno,allCombinaciones = algoritmoDinamico(numeroAcciones, ofertantes,precioAcciones)
     
-    #print(f"Combinación óptima: {mejorX}")
-    #print(f"valorMaximo: {valorMaximo}")
+    print(f"Combinación óptima: {mejorX}")
+    print(f"valorMaximo: {valorMaximo}")
     #print(f"Acciones compradas por el gobierno: {accionesGobierno}")
     #print(f"Combinaciones parciales: {allCombinaciones}")
 

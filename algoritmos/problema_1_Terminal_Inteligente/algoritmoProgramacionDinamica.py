@@ -1,10 +1,4 @@
-COST_ADVANCE = 1
-COST_DELETE = 2
-COST_INSERT = 2
-COST_REPLACE = 3
-COST_KILL = 1
-
-def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo):
+def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo,cost_advance, cost_delete , cost_insert, cost_replace, cost_kill):
     n = len(cadena_original)
     m = len(cadena_objetivo)
     
@@ -14,25 +8,25 @@ def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo):
     conteo_operaciones = {"advance": 0, "delete": 0, "insert": 0, "replace": 0, "kill": 0}
     
     for i in range(1, n + 1):
-        matrizCostos[i][0] = i * COST_DELETE
+        matrizCostos[i][0] = i * cost_delete
         operaciones[i][0] = operaciones[i-1][0] + [f"delete {cadena_original[i-1]} at position {i-1}"]
         formaciones[i][0] = formaciones[i-1][0]  
         
     for j in range(1, m + 1):
-        matrizCostos[0][j] = j * COST_INSERT
+        matrizCostos[0][j] = j * cost_insert
         operaciones[0][j] = operaciones[0][j-1] + [f"insert {cadena_objetivo[j-1]} at position {j-1}"]
         formaciones[0][j] = formaciones[0][j-1] + cadena_objetivo[j-1] 
         
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             if cadena_original[i-1] == cadena_objetivo[j-1]:
-                matrizCostos[i][j] = matrizCostos[i-1][j-1] + COST_ADVANCE
+                matrizCostos[i][j] = matrizCostos[i-1][j-1] + cost_advance
                 operaciones[i][j] = operaciones[i-1][j-1] + [f"advance at position {i-1}"]
                 formaciones[i][j] = formaciones[i-1][j-1] + cadena_original[i-1]
             else:
-                reemplazar = matrizCostos[i-1][j-1] + COST_REPLACE
-                borrar = matrizCostos[i-1][j] + COST_DELETE
-                insertar = matrizCostos[i][j-1] + COST_INSERT
+                reemplazar = matrizCostos[i-1][j-1] + cost_replace
+                borrar = matrizCostos[i-1][j] + cost_delete
+                insertar = matrizCostos[i][j-1] + cost_insert
 
                 if reemplazar <= borrar and reemplazar <= insertar:
                     matrizCostos[i][j] = reemplazar
@@ -49,10 +43,10 @@ def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo):
 
     killIsUsed = True
     for i in range(1, n + 1):
-        if i <= n and matrizCostos[i][m] > matrizCostos[i-1][m] + COST_KILL:
+        if i <= n and matrizCostos[i][m] > matrizCostos[i-1][m] + cost_kill:
 
             if killIsUsed:
-                matrizCostos[i][m] = matrizCostos[i-1][m] + COST_KILL
+                matrizCostos[i][m] = matrizCostos[i-1][m] + cost_kill
                 operaciones[i][m] = operaciones[i-1][m] + [f"kill from position {i-1}"]
                 formaciones[i][m] = formaciones[i-1][m]
                 killIsUsed = False
@@ -79,9 +73,9 @@ def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo):
     return matrizCostos[n][m], operaciones[n][m], conteo_operaciones, formaciones[n][m]
 
 if __name__ == "__main__":
-    cadena_original = input("Ingrese la cadena original: ")
-    cadena_objetivo = input("Ingrese la cadena objetivo: ")
-    costo, ops, conteo_ops, cadena_formada = algoritmoProgramacionDinamica(cadena_original, cadena_objetivo)
+    cadena_original = 'esternocleidomastoideo'
+    cadena_objetivo = 'ayDiosmio'
+    costo, ops, conteo_ops, cadena_formada = algoritmoProgramacionDinamica(cadena_original, cadena_objetivo,1,2,2,3,4)
     print("Costo Programación Dinámica:", costo)
     print("Operaciones:", ops)
     print("Conteo de operaciones:", conteo_ops)
