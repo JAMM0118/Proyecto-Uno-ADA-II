@@ -45,18 +45,18 @@ def resolver_subasta(numeroAcciones, precioAcciones, ofertantes):
 
 
 if __name__ == "__main__":
-    numeroAcciones = 1000
-    precioAcciones = 100
+    numeroAcciones = 100
+    precioAcciones = 10
     ofertantes = [
-        (500, 100, 600), 
-        (450, 400, 800)
+        (15, 10, 20), 
+        (20, 20, 30)
     ]
 
     mejor_combinacion, mejor_valor, acciones_gobierno, combinaciones = resolver_subasta(
         numeroAcciones, precioAcciones, ofertantes
     )
 
-    #print(f"Mejor combinación: {mejor_combinacion}")
-    #print(f"Valor máximo: {mejor_valor}")
-    #print(f"Acciones compradas por el gobierno: {acciones_gobierno}")
+    print(f"Mejor combinación: {mejor_combinacion}")
+    print(f"Valor máximo: {mejor_valor}")
+    print(f"Acciones compradas por el gobierno: {acciones_gobierno}")
     #print(f"Total de combinaciones generadas: {combinaciones}")

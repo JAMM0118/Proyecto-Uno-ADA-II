@@ -59,17 +59,17 @@ def algoritmoDinamico(numeroAcciones, ofertantes,precioAcciones):
 
 
 if __name__ == "__main__":
-    numeroAcciones = 1000
-    precioAcciones = 100
+    numeroAcciones = 100
+    precioAcciones = 10
     ofertantes = [
-        (500, 100, 600), 
-        (450, 400, 800)
+        (15, 10, 20), 
+        (20, 20, 30)
     ]
     mejorX, valorMaximo,accionesGobierno,allCombinaciones = algoritmoDinamico(numeroAcciones, ofertantes,precioAcciones)
     
     print(f"Combinación óptima: {mejorX}")
     print(f"valorMaximo: {valorMaximo}")
-    #print(f"Acciones compradas por el gobierno: {accionesGobierno}")
+    print(f"Acciones compradas por el gobierno: {accionesGobierno}")
     #print(f"Combinaciones parciales: {allCombinaciones}")
 
     

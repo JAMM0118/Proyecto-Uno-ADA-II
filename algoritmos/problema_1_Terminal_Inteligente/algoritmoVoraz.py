@@ -65,7 +65,7 @@ def algoritmoVoraz(cadena_original, cadena_objetivo,cost_advance, cost_delete , 
 if __name__ == "__main__":
     cadena_original = input("Ingrese la cadena original: ")
     cadena_objetivo = input("Ingrese la cadena objetivo: ") 
-    costo, ops, conteo_ops, cadena_formada = algoritmoVoraz(cadena_original, cadena_objetivo, 1, 1, 1, 1, 1)
+    costo, ops, conteo_ops, cadena_formada = algoritmoVoraz(cadena_original, cadena_objetivo, 1, 2, 2, 3, 1)
     print("Costo Voraz:", costo)
     print("Operaciones:", ops)
     print("Conteo de operaciones:", conteo_ops)

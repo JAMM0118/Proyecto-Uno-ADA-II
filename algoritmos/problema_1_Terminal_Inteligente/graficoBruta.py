@@ -36,7 +36,7 @@ complejidad_normalizada = [c / max(complejidad_teorica) * max(tiempos_experiment
 # Graficar resultados
 plt.figure(figsize=(10, 6))
 plt.plot(range(len(cadenas_originales)), tiempos_experimentales, label="Tiempo Experimental", marker="o", color="blue")
-plt.plot(range(len(cadenas_originales)), complejidad_teorica, label="Complejidad Teórica (Normalizada)", linestyle="--", color="red")
+plt.plot(range(len(cadenas_originales)), complejidad_normalizada, label="Complejidad Teórica (Normalizada)", linestyle="--", color="red")
 plt.xlabel("Casos (Tamaño creciente de cadenas)")
 plt.ylabel("Tiempo (segundos)")
 plt.title("Comparación de Tiempo Experimental y Complejidad Teórica (Fuerza Bruta)")

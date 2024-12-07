@@ -37,13 +37,13 @@ for n in num_casos_dinamico:
     # Calcular complejidad teórica
     
 
-# Normalizar complejidad teórica para comparación gráfica
-#complejidad_normalizada_dinamico = [c / max(complejidad_teorica_dinamico) * max(tiempos_experimentales_dinamico) for c in complejidad_teorica_dinamico]
+#Normalizar complejidad teórica para comparación gráfica
+complejidad_normalizada_dinamico = [c / max(complejidad_teorica_dinamico) * max(tiempos_experimentales_dinamico) for c in complejidad_teorica_dinamico]
 
 # Graficar resultados
 plt.figure(figsize=(10, 6))
 plt.plot(num_casos_dinamico, tiempos_experimentales_dinamico, label="Tiempo Experimental", marker="o", color="blue")
-plt.plot(num_casos_dinamico, complejidad_teorica_dinamico, label="Complejidad Teórica", linestyle="--", color="red")
+plt.plot(num_casos_dinamico, complejidad_normalizada_dinamico, label="Complejidad Teórica", linestyle="--", color="red")
 plt.xlabel("Número de ofertantes (n)")
 plt.ylabel("Tiempo (segundos)")
 plt.title("Comparación de Tiempo Experimental y Complejidad Teórica (Algoritmo Dinámico)")

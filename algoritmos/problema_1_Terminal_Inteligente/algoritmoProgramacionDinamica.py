@@ -73,9 +73,9 @@ def algoritmoProgramacionDinamica(cadena_original, cadena_objetivo,cost_advance,
     return matrizCostos[n][m], operaciones[n][m], conteo_operaciones, formaciones[n][m]
 
 if __name__ == "__main__":
-    cadena_original = 'esternocleidomastoideo'
-    cadena_objetivo = 'ayDiosmio'
-    costo, ops, conteo_ops, cadena_formada = algoritmoProgramacionDinamica(cadena_original, cadena_objetivo,1,2,2,3,4)
+    cadena_original = 'francesa'
+    cadena_objetivo = 'ancestro'
+    costo, ops, conteo_ops, cadena_formada = algoritmoProgramacionDinamica(cadena_original, cadena_objetivo,1,2,2,3,1)
     print("Costo Programación Dinámica:", costo)
     print("Operaciones:", ops)
     print("Conteo de operaciones:", conteo_ops)
